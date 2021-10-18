@@ -1,22 +1,23 @@
-const express = require("express");
-const { graphqlHTTP } = require('express-graphql');
-const dotenv = require("dotenv").config()
-const cors = require("cors");
-const app = express();
-/// schema
-const schema = require("./src/schema");
-/// resolvers
-const resolver = require("./src/resolvers");
+const { GraphQLServer } = require('graphql-yoga');
+const typesArray = require("./src");
+const dotenv = require("dotenv").config();
 
-app.use(cors());
 
-// graphql
-app.use("/", graphqlHTTP({
-    schema: schema,
-    rootValue: resolver,
-    graphiql: true,
-}))
 
-app.listen(process.env.PORT || 1000, () => {
+
+
+const opts = {
+    port: process.env.PORT,
+    endpoint: '/test'
+}
+
+
+const server = new GraphQLServer({ 
+    schema: typesArray,
+    // resolvers,
+    opts});
+
+
+server.start(() => {
     console.log(`server runing at http://localhost:${process.env.PORT}`)
 })
