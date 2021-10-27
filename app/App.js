@@ -6,9 +6,10 @@ import { StyleSheet, Text, View } from 'react-native';
 import LoginScreen from './src/screens/login/login';
 
 const MainNavigator = createStackNavigator({
-  Login: {screen: LoginScreen},
+  Login: {screen: LoginScreen, navigationOptions: {
+    header: null,
+  }},
   
-
 });
 
 const App = createAppContainer(MainNavigator);
